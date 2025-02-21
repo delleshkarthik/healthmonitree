@@ -5,9 +5,11 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { useToast } from './ui/use-toast';
 import EmergencyMap from './EmergencyMap';
+import { useState } from 'react';
 
 const EmergencySection = () => {
   const { toast } = useToast();
+  const [apiKey, setApiKey] = useState<string>('');
 
   const emergencyNumbers = [
     { name: 'Ambulance', number: '911', icon: Phone },
@@ -16,14 +18,12 @@ const EmergencySection = () => {
   ];
 
   const handleSOSClick = () => {
-    // In a real app, this would trigger emergency services
     toast({
       title: "Emergency Alert Sent",
       description: "Emergency services have been notified of your location.",
       variant: "destructive",
     });
 
-    // Get user's location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const location = {
@@ -31,6 +31,17 @@ const EmergencySection = () => {
           lng: position.coords.longitude,
         };
         console.log('User location:', location);
+      });
+    }
+  };
+
+  const handleApiKeySubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (apiKey) {
+      localStorage.setItem('GOOGLE_MAPS_API_KEY', apiKey);
+      toast({
+        title: "API Key Saved",
+        description: "Your Google Maps API key has been saved for this session.",
       });
     }
   };
@@ -68,7 +79,7 @@ const EmergencySection = () => {
                   repeatType: "loop"
                 }}
                 onClick={handleSOSClick}
-                className="w-32 h-32 rounded-full bg-red-600 text-white text-2xl font-bold flex items-center justify-center mb-6 focus:outline-none focus:ring-4 focus:ring-red-300"
+                className="w-full max-w-md h-16 bg-red-600 text-white text-2xl font-bold flex items-center justify-center mb-6 focus:outline-none focus:ring-4 focus:ring-red-300 rounded-lg"
               >
                 SOS
               </motion.button>
@@ -113,6 +124,20 @@ const EmergencySection = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
+            <form onSubmit={handleApiKeySubmit} className="space-y-4">
+              <div className="flex gap-2">
+                <Input
+                  type="text"
+                  placeholder="Enter your Google Maps API key"
+                  value={apiKey}
+                  onChange={(e) => setApiKey(e.target.value)}
+                  className="flex-1"
+                />
+                <Button type="submit" variant="secondary">
+                  Save Key
+                </Button>
+              </div>
+            </form>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
               <Input
