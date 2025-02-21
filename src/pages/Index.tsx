@@ -32,6 +32,7 @@ const Index = () => {
                 <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
                 <li><a href="/health-data" className="hover:text-white transition-colors">Health Data</a></li>
                 <li><a href="/patient-records" className="hover:text-white transition-colors">Patient Records</a></li>
+                {/* <li><a href="/real-time" className="hover:text-white transition-colors">Real time</a></li> */}
               </ul>
             </div>
             <div>
