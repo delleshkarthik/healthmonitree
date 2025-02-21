@@ -3,12 +3,14 @@ import { useState } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { motion } from 'framer-motion';
-import { User, Weight, Ruler, Droplet, ClipboardList, AlertCircle, Pill, Wine, Phone } from 'lucide-react';
+import { User, Weight, Ruler, Droplet, ClipboardList, AlertCircle, Pill, Wine, Phone, Activity, HeartPulse, UserCircle2 } from 'lucide-react';
 
 const HealthDataForm = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     patientName: '',
+    age: '',
+    gender: '',
     weight: '',
     height: '',
     bloodGroup: '',
@@ -19,6 +21,7 @@ const HealthDataForm = () => {
       smoking: false,
       alcohol: false
     },
+    physicalActivity: '',
     emergencyContact: ''
   });
 
@@ -96,6 +99,45 @@ const HealthDataForm = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className={labelClasses}>
+              <UserCircle2 size={18} />
+              Age
+            </label>
+            <input
+              type="number"
+              name="age"
+              required
+              min="0"
+              max="150"
+              className={inputClasses}
+              value={formData.age}
+              onChange={handleInputChange}
+              placeholder="Enter age"
+            />
+          </div>
+
+          <div>
+            <label className={labelClasses}>
+              <User size={18} />
+              Gender
+            </label>
+            <select
+              name="gender"
+              required
+              className={inputClasses}
+              value={formData.gender}
+              onChange={handleInputChange}
+            >
+              <option value="">Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className={labelClasses}>
               <Weight size={18} />
               Body Weight (kg)
             </label>
@@ -165,7 +207,7 @@ const HealthDataForm = () => {
             className={inputClasses}
             value={formData.medicalConditions}
             onChange={handleInputChange}
-            placeholder="List any existing medical conditions"
+            placeholder="List any existing medical conditions or type 'None'"
             rows={3}
           />
         </div>
@@ -180,7 +222,7 @@ const HealthDataForm = () => {
             className={inputClasses}
             value={formData.allergies}
             onChange={handleInputChange}
-            placeholder="List any allergies"
+            placeholder="List any allergies or type 'None'"
             rows={2}
           />
         </div>
@@ -195,7 +237,7 @@ const HealthDataForm = () => {
             className={inputClasses}
             value={formData.medications}
             onChange={handleInputChange}
-            placeholder="List current medications"
+            placeholder="List current medications or type 'None'"
             rows={2}
           />
         </div>
@@ -229,6 +271,27 @@ const HealthDataForm = () => {
 
         <div>
           <label className={labelClasses}>
+            <Activity size={18} />
+            Physical Activity Level
+          </label>
+          <select
+            name="physicalActivity"
+            required
+            className={inputClasses}
+            value={formData.physicalActivity}
+            onChange={handleInputChange}
+          >
+            <option value="">Select activity level</option>
+            <option value="sedentary">Sedentary (Little to no exercise)</option>
+            <option value="lightly_active">Lightly Active (1-3 days/week)</option>
+            <option value="moderately_active">Moderately Active (3-5 days/week)</option>
+            <option value="very_active">Very Active (6-7 days/week)</option>
+            <option value="super_active">Super Active (Athletic level)</option>
+          </select>
+        </div>
+
+        <div>
+          <label className={labelClasses}>
             <Phone size={18} />
             Emergency Contact Details
           </label>
@@ -240,6 +303,8 @@ const HealthDataForm = () => {
             value={formData.emergencyContact}
             onChange={handleInputChange}
             placeholder="Emergency contact number"
+            pattern="[0-9]{10}"
+            title="Please enter a valid 10-digit phone number"
           />
         </div>
 
