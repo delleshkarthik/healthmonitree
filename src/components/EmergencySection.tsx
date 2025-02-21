@@ -16,12 +16,14 @@ const EmergencySection = () => {
   ];
 
   const handleSOSClick = () => {
+    // In a real app, this would trigger emergency services
     toast({
       title: "Emergency Alert Sent",
       description: "Emergency services have been notified of your location.",
       variant: "destructive",
     });
 
+    // Get user's location
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const location = {
@@ -66,7 +68,7 @@ const EmergencySection = () => {
                   repeatType: "loop"
                 }}
                 onClick={handleSOSClick}
-                className="w-full max-w-md h-16 bg-red-600 text-white text-2xl font-bold flex items-center justify-center mb-6 focus:outline-none focus:ring-4 focus:ring-red-300 rounded-lg"
+                className="w-32 h-32 rounded-full bg-red-600 text-white text-2xl font-bold flex items-center justify-center mb-6 focus:outline-none focus:ring-4 focus:ring-red-300"
               >
                 SOS
               </motion.button>

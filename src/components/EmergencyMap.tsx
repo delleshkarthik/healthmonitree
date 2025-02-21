@@ -10,7 +10,7 @@ const EmergencyMap = () => {
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    // Initialize map with Mapbox token
+    // Initialize map
     mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN'; // Replace with your Mapbox token
     
     map.current = new mapboxgl.Map({
