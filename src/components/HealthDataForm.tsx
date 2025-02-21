@@ -1,11 +1,14 @@
-
 import { useState } from 'react';
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import { motion } from 'framer-motion';
 import { User, Weight, Ruler, Droplet, ClipboardList, AlertCircle, Pill, Wine, Phone, Activity, HeartPulse, UserCircle2 } from 'lucide-react';
 
-const HealthDataForm = () => {
+interface HealthDataFormProps {
+  onSubmit: (data: any) => void;
+}
+
+const HealthDataForm = ({ onSubmit }: HealthDataFormProps) => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     patientName: '',
@@ -66,6 +69,9 @@ const HealthDataForm = () => {
       description: "Your health data has been successfully saved.",
       duration: 5000,
     });
+
+    // Pass the form data to parent component
+    onSubmit(formData);
   };
 
   const inputClasses = "w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent";
