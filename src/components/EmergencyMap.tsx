@@ -10,14 +10,8 @@ const EmergencyMap = () => {
   useEffect(() => {
     if (!mapContainer.current) return;
 
-    const apiKey = localStorage.getItem('GOOGLE_MAPS_API_KEY');
-    if (!apiKey) {
-      console.log('No Google Maps API key found. Please enter your API key.');
-      return;
-    }
-
-    // Initialize map
-    mapboxgl.accessToken = apiKey;
+    // Initialize map with Mapbox token
+    mapboxgl.accessToken = 'YOUR_MAPBOX_TOKEN'; // Replace with your Mapbox token
     
     map.current = new mapboxgl.Map({
       container: mapContainer.current,

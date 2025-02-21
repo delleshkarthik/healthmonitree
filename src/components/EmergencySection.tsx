@@ -5,11 +5,9 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { useToast } from './ui/use-toast';
 import EmergencyMap from './EmergencyMap';
-import { useState } from 'react';
 
 const EmergencySection = () => {
   const { toast } = useToast();
-  const [apiKey, setApiKey] = useState<string>('');
 
   const emergencyNumbers = [
     { name: 'Ambulance', number: '911', icon: Phone },
@@ -31,17 +29,6 @@ const EmergencySection = () => {
           lng: position.coords.longitude,
         };
         console.log('User location:', location);
-      });
-    }
-  };
-
-  const handleApiKeySubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (apiKey) {
-      localStorage.setItem('GOOGLE_MAPS_API_KEY', apiKey);
-      toast({
-        title: "API Key Saved",
-        description: "Your Google Maps API key has been saved for this session.",
       });
     }
   };
@@ -124,20 +111,6 @@ const EmergencySection = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <form onSubmit={handleApiKeySubmit} className="space-y-4">
-              <div className="flex gap-2">
-                <Input
-                  type="text"
-                  placeholder="Enter your Google Maps API key"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  className="flex-1"
-                />
-                <Button type="submit" variant="secondary">
-                  Save Key
-                </Button>
-              </div>
-            </form>
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none" />
               <Input
