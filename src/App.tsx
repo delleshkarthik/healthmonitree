@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import HealthDataEntry from "./pages/HealthDataEntry";
 import PatientRecords from "./pages/PatientRecords";
+import Realtime from "./pages/Realtime";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,7 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/health-data" element={<HealthDataEntry />} />
           <Route path="/patient-records" element={<PatientRecords />} />
-          {/* <Route path="/real-time" element={<Realtime />} /> */}
+          <Route path="/real-time" element={<Realtime />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

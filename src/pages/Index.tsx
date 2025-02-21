@@ -1,9 +1,9 @@
-
 import NavBar from '@/components/NavBar';
 import HeroSection from '@/components/HeroSection';
 import Features from '@/components/Features';
 import EmergencySection from '@/components/EmergencySection';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   return (
@@ -29,10 +29,10 @@ const Index = () => {
             <div>
               <h3 className="text-xl font-bold mb-4">Quick Links</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="/" className="hover:text-white transition-colors">Home</a></li>
-                <li><a href="/health-data" className="hover:text-white transition-colors">Health Data</a></li>
-                <li><a href="/patient-records" className="hover:text-white transition-colors">Patient Records</a></li>
-                {/* <li><a href="/real-time" className="hover:text-white transition-colors">Real time</a></li> */}
+                <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
+                <li><Link to="/health-data" className="hover:text-white transition-colors">Health Data</Link></li>
+                <li><Link to="/patient-records" className="hover:text-white transition-colors">Patient Records</Link></li>
+                <li><Link to="/real-time" className="hover:text-white transition-colors">Real-time Monitoring</Link></li>
               </ul>
             </div>
             <div>
