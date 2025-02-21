@@ -2,6 +2,7 @@
 import NavBar from '@/components/NavBar';
 import HeroSection from '@/components/HeroSection';
 import Features from '@/components/Features';
+import EmergencySection from '@/components/EmergencySection';
 import { motion } from 'framer-motion';
 
 const Index = () => {
@@ -10,6 +11,7 @@ const Index = () => {
       <NavBar />
       <HeroSection />
       <Features />
+      <EmergencySection />
       <motion.footer
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
