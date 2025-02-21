@@ -4,7 +4,7 @@ import NavBar from '@/components/NavBar';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Upload, File, Trash2 } from 'lucide-react';
+import { Upload, File, Trash2, Eye, Download } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { motion } from 'framer-motion';
 
@@ -14,23 +14,27 @@ interface Document {
   description: string;
   date: string;
   fileName: string;
+  file?: File;
 }
 
 const PatientRecords = () => {
   const [documents, setDocuments] = useState<Document[]>([]);
   const [documentName, setDocumentName] = useState('');
   const [description, setDescription] = useState('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { toast } = useToast();
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      setSelectedFile(file);
       const newDocument: Document = {
         id: Math.random().toString(36).substr(2, 9),
         name: documentName,
         description: description,
         date: new Date().toLocaleDateString(),
-        fileName: file.name
+        fileName: file.name,
+        file: file
       };
 
       setDocuments([...documents, newDocument]);
@@ -51,6 +55,44 @@ const PatientRecords = () => {
       description: "The document has been removed from your records.",
       variant: "destructive",
     });
+  };
+
+  const viewDocument = (document: Document) => {
+    if (document.file) {
+      const fileURL = URL.createObjectURL(document.file);
+      window.open(fileURL, '_blank');
+      URL.revokeObjectURL(fileURL);
+    } else {
+      toast({
+        title: "Error",
+        description: "Unable to view the document.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const downloadDocument = (document: Document) => {
+    if (document.file) {
+      const fileURL = URL.createObjectURL(document.file);
+      const a = document.createElement('a');
+      a.href = fileURL;
+      a.download = document.fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(fileURL);
+
+      toast({
+        title: "Download started",
+        description: `${document.fileName} is being downloaded.`,
+      });
+    } else {
+      toast({
+        title: "Error",
+        description: "Unable to download the document.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -123,13 +165,32 @@ const PatientRecords = () => {
                         <span className="text-xs text-muted-foreground">{doc.date}</span>
                       </div>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => deleteDocument(doc.id)}
-                    >
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => viewDocument(doc)}
+                        title="View Document"
+                      >
+                        <Eye className="h-4 w-4 text-primary" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => downloadDocument(doc)}
+                        title="Download Document"
+                      >
+                        <Download className="h-4 w-4 text-primary" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => deleteDocument(doc.id)}
+                        title="Delete Document"
+                      >
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
+                    </div>
                   </motion.div>
                 ))}
                 {documents.length === 0 && (
