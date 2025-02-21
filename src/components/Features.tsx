@@ -9,21 +9,25 @@ const Features = () => {
       icon: Brain,
       title: 'AI-Powered Analysis',
       description: 'Advanced algorithms analyze your health data to detect potential issues early.',
+      link: 'http://127.0.0.1:7861'
     },
     {
       icon: Bell,
       title: 'Smart Alerts',
       description: 'Receive instant notifications when our system detects concerning patterns.',
+      link: ''
     },
     {
       icon: Activity,
       title: 'Real-time Monitoring',
       description: 'Track vital signs and health metrics in real-time with precision.',
+      link: ''
     },
     {
       icon: HeartPulse,
       title: 'Personalized Care',
       description: 'Get tailored health recommendations based on your unique data.',
+      link: ''
     },
   ];
 
