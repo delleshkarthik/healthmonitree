@@ -1,6 +1,6 @@
 
 import FeatureCard from './FeatureCard';
-import { Activity, Bell, Brain, HeartPulse } from 'lucide-react';
+import { Activity, File, Brain, HeartPulse } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Features = () => {
@@ -12,10 +12,10 @@ const Features = () => {
       link: 'http://127.0.0.1:7861'
     },
     {
-      icon: Bell,
-      title: 'Smart Alerts',
-      description: 'Receive instant notifications when our system detects concerning patterns.',
-      link: ''
+      icon: File,
+      title: 'Patient Records',
+      description: 'Access and manage your medical documents and history securely.',
+      link: '/patient-records'
     },
     {
       icon: Activity,
