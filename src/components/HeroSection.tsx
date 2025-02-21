@@ -22,7 +22,7 @@ const HeroSection = () => {
               Get real-time insights and personalized care recommendations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Link to="/register">
+              <Link to="/health-data">
                 <Button size="lg" className="w-full sm:w-auto">
                   Start Monitoring
                 </Button>
